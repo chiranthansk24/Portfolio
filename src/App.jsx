@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
+import Hero from "./components/home/Hero";
+import Projects from "./components/home/Projects";
+import Contact from "./components/home/Contact";
 import Footer from "./components/Footer";
 import Background from "./components/Background";
 import Cursor from "./components/Cursor";
-import SkillsCertificates from "./components/SkillsCertificates";
+import SkillsCertificates from "./components/skills/SkillsCertificates";
 
 function App() {
   // Add scroll reveal effect

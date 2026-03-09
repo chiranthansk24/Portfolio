@@ -77,9 +77,9 @@ const Navbar = () => {
             {navLinks.map((link) => {
               const isActive = location.pathname === link.href || (location.pathname === '/' && link.href === '/') || (link.href.startsWith('/#') && location.pathname === '/');
               return (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 style={{
                   color: isActive ? "var(--accent)" : "var(--text-primary)",
                   fontWeight: 600,
@@ -91,7 +91,7 @@ const Navbar = () => {
                 className="nav-link"
               >
                 {link.name}
-              </a>
+              </Link>
               );
             })}
           </div>
@@ -160,9 +160,9 @@ const Navbar = () => {
         {navLinks.map((link) => {
           const isActive = location.pathname === link.href || (location.pathname === '/' && link.href === '/') || (link.href.startsWith('/#') && location.pathname === '/');
           return (
-          <a
+          <Link
             key={link.name}
-            href={link.href}
+            to={link.href}
             onClick={() => setIsOpen(false)}
             style={{
               fontSize: "2rem",
@@ -173,7 +173,7 @@ const Navbar = () => {
             }}
           >
             {link.name}
-          </a>
+          </Link>
           );
         })}
         <button
