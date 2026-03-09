@@ -17,12 +17,28 @@ const Contact = () => {
     e.preventDefault();
     setStatus("submitting");
 
-    // Simulate API call
-    setTimeout(() => {
-      setStatus("success");
-      setFormData({ name: "", email: "", message: "" });
+    try {
+      const response = await fetch("https://formspree.io/f/mreyeoor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 4000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 4000);
+      }
+    } catch (error) {
+      setStatus("error");
       setTimeout(() => setStatus("idle"), 4000);
-    }, 1500);
+    }
   };
 
   return (
