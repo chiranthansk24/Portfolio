@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -23,9 +25,10 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { name: "Work", href: "#projects" },
-    { name: "About", href: "#skills" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "Work", href: "/#projects" },
+    { name: "Skills", href: "/skills" },
+    { name: "Contact", href: "/#contact" },
   ];
 
   return (
@@ -50,8 +53,8 @@ const Navbar = () => {
           height: "var(--nav-height)",
         }}
       >
-        <a
-          href="#"
+        <Link
+          to="/"
           style={{
             fontSize: "1.5rem",
             fontWeight: 800,
@@ -59,10 +62,11 @@ const Navbar = () => {
             textTransform: "uppercase",
             color: "var(--text-primary)",
             zIndex: 1001,
+            textDecoration: "none",
           }}
         >
           Chiranthan.dev
-        </a>
+        </Link>
 
         {/* Desktop Menu */}
         <div
@@ -70,22 +74,26 @@ const Navbar = () => {
           className="desktop-menu"
         >
           <div style={{ display: "flex", gap: "2rem" }}>
-            {navLinks.map((link) => (
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.href || (location.pathname === '/' && link.href === '/') || (link.href.startsWith('/#') && location.pathname === '/');
+              return (
               <a
                 key={link.name}
                 href={link.href}
                 style={{
-                  color: "var(--text-primary)",
+                  color: isActive ? "var(--accent)" : "var(--text-primary)",
                   fontWeight: 600,
                   fontSize: "0.9rem",
                   textTransform: "uppercase",
                   letterSpacing: "0.05em",
+                  textDecoration: "none",
                 }}
                 className="nav-link"
               >
                 {link.name}
               </a>
-            ))}
+              );
+            })}
           </div>
           <div
             style={{
@@ -149,7 +157,9 @@ const Navbar = () => {
           zIndex: 1000,
         }}
       >
-        {navLinks.map((link) => (
+        {navLinks.map((link) => {
+          const isActive = location.pathname === link.href || (location.pathname === '/' && link.href === '/') || (link.href.startsWith('/#') && location.pathname === '/');
+          return (
           <a
             key={link.name}
             href={link.href}
@@ -158,12 +168,14 @@ const Navbar = () => {
               fontSize: "2rem",
               fontWeight: 800,
               textTransform: "uppercase",
-              color: "var(--text-primary)",
+              color: isActive ? "var(--accent)" : "var(--text-primary)",
+              textDecoration: "none",
             }}
           >
             {link.name}
           </a>
-        ))}
+          );
+        })}
         <button
           onClick={() => {
             toggleTheme();
